@@ -220,3 +220,45 @@ void mark_complete(Task *tasks, int capacity, int activeTasks) {
     printf("Task ID %d not found.\n", id);
   }
 }
+
+void save_to_file(Task *tasks, int *activetasks) {
+  FILE *file = fopen("tasks.dat", "wb");
+
+  if (file == NULL) {
+    printf("Couldn't open the file!\n");
+    return;
+  }
+
+  fwrite(activetasks, sizeof(*activetasks), 1, file);
+
+  for (int i = 0; i < MAX_TASKS; i++) {
+    if (tasks[i].exists) {
+      fwrite(&tasks[i], sizeof(tasks[i]), *activetasks, file);
+    }
+  }
+
+  printf("Task(s) saved successfully!\n");
+
+  fclose(file);
+}
+
+void load_from_file(Task *tasks, int *activeTasks) {
+  FILE *file = fopen("tasks.dat", "rb");
+
+  if (file == NULL) {
+    printf("No saved file found!\n");
+    return;
+  }
+
+  if (fread(activeTasks, sizeof(*activeTasks), 1, file) != 1) {
+    printf("Corrupted saved file.\n");
+    fclose(file);
+    return;
+  }
+
+  for (int i = 0; i < *activeTasks; i++) {
+    fread(&tasks[i], sizeof(tasks[i]), 1, file);
+  }
+
+  fclose(file);
+}

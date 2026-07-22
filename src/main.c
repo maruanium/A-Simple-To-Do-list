@@ -35,10 +35,10 @@ void userMenu() {
   printf(BLUE "[3]." RESET " Delete Task\n");
   printf(BLUE "[4]." RESET " Edit Task\n");
   printf(BLUE "[5]." RESET " Mark Complete\n");
-  printf(BLUE "[6]." RESET " Mask Uncompete (under development)\n");
-  // printf(MAGENTA "[6]." RESET " Save\n");
-  // printf(BLUE "[7]." RESET " Load\n");
-  printf(RED "[8]" RESET " Restart Program (for devs)\n");
+  // printf(BLUE "[6]." RESET " Mask Uncompete (under development)\n");
+  printf(BLUE "[7]." RESET " Save Task(s)\n");
+  printf(BLUE "[8]." RESET " Load Task(s)\n");
+  // printf(RED "[8]" RESET " Restart Program (for devs)\n");
   printf("0. Exit\n");
 }
 
@@ -147,8 +147,17 @@ int main() {
       system("clear");
       break;
 
-    // under development!!!!
-    case 6:
+    case 7:
+      system("clear");
+      save_to_file(tasks, &activeTasks);
+      menu_pause();
+      system("clear");
+      break;
+
+    case 8:
+      system("clear");
+      load_from_file(tasks, &activeTasks);
+      menu_pause();
       system("clear");
       break;
     }
