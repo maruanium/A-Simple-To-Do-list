@@ -5,7 +5,7 @@ CFLAGS = -Iinclude \
 
 SRC = src/main.c \
       src/tasks.c \
-      Loading-Screen-C-Lib/src/loading_screen.c
+      src/loading_screen.c
 
 TARGET = todo
 
